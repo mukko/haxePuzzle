@@ -3,14 +3,9 @@ import flash.events.Event;
 import flash.Lib;
 import flash.text.TextField;
 import flash.events.KeyboardEvent;
+import flash.ui.Keyboard;
 
 class Main {
-	
-	private static var KEY_A:UInt = 65;
-	private static var KEY_S:UInt = 83;
-	private static var KEY_D:UInt = 68;
-	private static var KEY_K:UInt = 75;
-	private static var KEY_L:UInt = 76;
 	
 	private function new() {
         //var tf = new TextField();
@@ -20,13 +15,43 @@ class Main {
 		var stage = Lib.current.stage;
 
 		//キーボードイベントを登録
-		stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):Void {
-			trace(e.keyCode);
-		});
+		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		
 		//Lib.current.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 	}
     
+	private function onKeyDown(event:KeyboardEvent):Void {
+		switch(event.keyCode) {
+			case Keyboard.A: 
+				trace("A");
+			case Keyboard.S:
+				trace("S");
+			case Keyboard.D:
+				trace("D");
+			case Keyboard.K:
+				trace("K");
+			case Keyboard.L:
+				trace("L");
+			default:
+		}
+	}
+	
+	private function onKeyUp(event:KeyboardEvent):Void {
+		switch(event.keyCode) {
+			case Keyboard.A: 
+				trace("A");
+			case Keyboard.S:
+				trace("S");
+			case Keyboard.D:
+				trace("D");
+			case Keyboard.K:
+				trace("K");
+			case Keyboard.L:
+				trace("L");
+			default:
+		}
+	}
 	
 	//毎フレーム呼ばれる
 	function onEventFrame(e:Event):Void {
