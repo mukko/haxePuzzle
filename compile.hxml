@@ -2,5 +2,6 @@
 -main Main
 -swf-version 10.1
 -swf bin/Main.swf
+-swf-header 500:500:60:000000
 -debug
 -D fdb
