@@ -1,2 +1,5 @@
 *.hxproj
+*.idea
 /bin
+/out
+*.iml

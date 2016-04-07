@@ -1,5 +1,5 @@
 package ;
-import flash.display.Sprite;
+import flash.text.TextFormat;
 import flash.events.Event;
 import flash.Lib;
 import flash.text.TextField;
@@ -8,40 +8,11 @@ import flash.ui.Keyboard;
 
 class Main {
 	
-	static inline var FIELD_W:Int = 12;
-	static inline var FIELD_H:Int = 23;
-	static inline var WALL:Int = 99;
-	
-	static inline var BLOCK_SIZE:Int = 20;	//1片20pxということ
-	
-	static private var FIELD_FORMAT:Array<Array<Int>> = [
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[WALL, WALL, WALL, 0, 0, 0, 0, 0, 0, WALL, WALL, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, WALL],
-	[WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL],
-	];
+	private var field:Field = new Field();
 	
 	private function new() {
 		var stage = Lib.current.stage;
+		var c = CommonVar;
 
 		//キーボードイベントを登録
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
@@ -49,7 +20,40 @@ class Main {
 		
 		//Lib.current.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		
-		drawBackground(FIELD_FORMAT);
+		//描画クラス呼び出し
+		var view:TetroView = new TetroView();
+		
+		//背景の描画
+		view.drawBackground();
+		//ステージの描画
+		view.drawStage(this.field.getField());
+		
+		var t = new Tetromino();
+		var x = t.create(c.TETROMINO1);
+		var y = t.create(c.TETROMINO2);
+		
+		this.field.fieldMapping(x, 4, 0);
+		view.drawStage(this.field.getField());
+		
+		this.field.fieldMapping(x, 2, 10);
+		view.drawStage(this.field.getField());
+		
+		this.field.fieldMapping(y, 5, 10);
+		view.drawStage(this.field.getField());
+//		
+//		//ブロックを作成してみて、配列長を表示するテスト
+//		var tf = new TextFormat();
+//		tf.font = "Times New Roman";
+//		tf.size = 12;
+//		tf.color = 0x000000;
+//		
+//		var text = new TextField();
+//		text.text = Std.string(x.length);
+//		text.setTextFormat(tf);
+//		
+//		stage.addChild(text);
+		
+		
 	}
     
 	//キー入力部分関数
@@ -88,39 +92,6 @@ class Main {
 	//毎フレーム呼ばれる
 	function onEventFrame(e:Event):Void {
 
-	}
-	
-	//ステージ背景を描画する
-	function drawBackground(field:Array<Array<Int>>) {
-		var canvas:Sprite = new Sprite();
-		var graphics = canvas.graphics;
-		
-		//背景色（白）の描画
-		graphics.beginFill(0xFFFFFF);
-		graphics.drawRect(0, 0, 500, 500);
-		graphics.endFill();
-		
-		Lib.current.stage.addChild(canvas);
-		
-		var px;
-		var py = 0;
-		
-		for (i in field) {
-			px = 0;
-			for (j in i) {
-				if (j == WALL) {
-					var wall:Sprite = new Sprite();
-					wall.graphics.beginFill(0x000000);
-					wall.graphics.drawRect(px, py, BLOCK_SIZE, BLOCK_SIZE);
-					wall.graphics.endFill();
-					Lib.current.stage.addChild(wall);
-				}else {
-				}
-				
-				px += BLOCK_SIZE;
-			}
-			py += BLOCK_SIZE;
-		}
 	}
 	
     public static function main() {
