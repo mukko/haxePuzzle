@@ -38,6 +38,8 @@ class TetroView {
 		for (i in field) {
 			px = 0;
 			for (j in i) {
+				if(j != c.BACK) block.graphics.lineStyle(1, 0x000000);
+				
 				switch j{
 					case c.WALL:
 					block.graphics.beginFill(c.WALL_COLOR);
@@ -62,14 +64,15 @@ class TetroView {
 					
 					case c.TETROMINO7:
 					block.graphics.beginFill(c.T7_COLOR);
-					//何もない部分
-					default:
-					block.graphics.beginFill(c.BG_COLOR);
+					//何もない部分(c.BACK)
+					case c.BACK:
+					block.graphics.beginFill(c.STAGE_COLOR);
 					
 				}
 				
 				block.graphics.drawRect(px, py, c.BLOCK_SIZE, c.BLOCK_SIZE);
 				block.graphics.endFill();
+				
         Lib.current.stage.addChild(block);
 				
 				px += c.BLOCK_SIZE;

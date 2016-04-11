@@ -72,4 +72,32 @@ class Tetromino {
     return color;
   }
 
+  //右回転
+  public function rightRotation(block:Array<Array<Int>>):Array<Array<Int>>{
+    var size:Int = block.length;
+    var rotation:Array<Array<Int>> = [for(i in 0...size) []];
+    
+    for(i in 0...size){
+      for(j in 0...size){
+        rotation[i][j] = block[size-1-j][i];
+      }
+    }
+    
+    return rotation;
+  }
+
+  //左回転
+  public function leftRotation(block:Array<Array<Int>>):Array<Array<Int>>{
+    var size:Int = block.length;
+    var rotation:Array<Array<Int>> = [for(i in 0...size) []];
+    
+    for(i in 0...size){
+      for(j in 0...size){
+        rotation[i][j] = block[j][size-1-i];
+      }
+    }
+    
+    return rotation;
+  }
+
 }

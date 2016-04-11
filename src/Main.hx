@@ -9,6 +9,11 @@ import flash.ui.Keyboard;
 class Main {
 	
 	private var field:Field = new Field();
+	private var view:TetroView = new TetroView();
+	private var t:Tetromino = new Tetromino();
+	private var block:Array<Array<Int>>;
+	private var x:Int = 7;
+	private var y:Int = 15;
 	
 	private function new() {
 		var stage = Lib.current.stage;
@@ -20,25 +25,27 @@ class Main {
 		
 		//Lib.current.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		
-		//描画クラス呼び出し
-		var view:TetroView = new TetroView();
-		
 		//背景の描画
 		view.drawBackground();
 		//ステージの描画
 		view.drawStage(this.field.getField());
 		
-		var t = new Tetromino();
+		block = t.create(c.TETROMINO3);
+		
 		var x = t.create(c.TETROMINO1);
-		var y = t.create(c.TETROMINO2);
+		var y = t.create(c.TETROMINO4);
 		
 		this.field.fieldMapping(x, 4, 0);
 		view.drawStage(this.field.getField());
 		
-		this.field.fieldMapping(x, 2, 10);
+		this.field.fieldMapping(t.rightRotation(x), 2, 15);
 		view.drawStage(this.field.getField());
 		
-		this.field.fieldMapping(y, 5, 10);
+		this.field.fieldMapping(t.leftRotation(y), 5, 10);
+//		this.field.fieldMapping(y, 5, 10);
+		view.drawStage(this.field.getField());
+		
+		this.field.fieldMapping(block, 7, 15);
 		view.drawStage(this.field.getField());
 //		
 //		//ブロックを作成してみて、配列長を表示するテスト
@@ -65,10 +72,13 @@ class Main {
 				trace("S");
 			case Keyboard.D:
 				trace("D");
+			case Keyboard.J:
+				block = t.rightRotation(block);
+				this.field.fieldMapping(block, 7, 15);
+				view.drawStage(this.field.getField());
+				trace("J");
 			case Keyboard.K:
 				trace("K");
-			case Keyboard.L:
-				trace("L");
 			default:
 		}
 	}

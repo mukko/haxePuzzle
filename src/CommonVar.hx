@@ -39,6 +39,7 @@ class CommonVar {
 	];
   
   //tetromino code
+	static public inline var BACK:Int = 0;
   static public inline var TETROMINO1:Int = 1;  //棒
   static public inline var TETROMINO2:Int = 2;  //四角
   static public inline var TETROMINO3:Int = 3;  //S字
@@ -57,7 +58,8 @@ class CommonVar {
   static public inline var T7_COLOR:UInt = 0xEA68E7;
 	
 	static public inline var BG_COLOR:UInt = 0xffffff;
-	static public inline var WALL_COLOR:UInt = 0x000000;
+	static public inline var STAGE_COLOR:UInt = 0x000000;
+	static public inline var WALL_COLOR:UInt = 0x999999;
   
   public function new(){
     
